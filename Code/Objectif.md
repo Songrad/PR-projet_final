@@ -8,9 +8,10 @@
 * Gestion des déplacements au clavier
 * Objets identiques pour tout les joueurs
 * Une fois tout les objects collectés la partie se termine
-* Commenter (beaucoup) le code :
+* Commenter (***beaucoup***) le code :
     * Commenter en javadoc
     * Commenter chaque methodes / class
+* Architecture serveur dédié / client
 
 ## Fonctionnalité optionnelle
 
@@ -18,10 +19,12 @@
 * Afficher les objects collectés du joueur
 * Ajouter chronomètre
 * Principe du meilleur joueur
+* Objets spéciaux appliquant des effets au joueur (vitesse, etc)
 
 ## Ressources utilisées
 
-
+- Threads / Runnable
+- `synchronized` 
 
 ## Question / Reponse
 1. **Comment le nombre de joueurs est-il choisi au démarrage du jeu ?**
