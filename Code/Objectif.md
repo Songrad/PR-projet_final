@@ -17,6 +17,11 @@
 * Afficher les objets dans un rayon prédéfini
 * Afficher les objects collectés du joueur
 * Ajouter chronomètre
+* Principe du meilleur joueur
+
+## Ressources utilisées
+
+
 
 ## Question / Reponse
 1. comment le nombre de joueurs est-il choisi au demarrage du jeu ?
