@@ -3,3 +3,4 @@ Model/Game.java
 Model/GameObject.java
 Model/Player.java
 View/FrameGame.java
+View/PanelView.java

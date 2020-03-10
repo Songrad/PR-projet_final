@@ -1,6 +1,6 @@
 package Model;
 public class GameObject{
-	private final int SIZE = 10;
+	public static final int SIZE = 10;
 	private int CoordX;
 	private int CoordY;
 

@@ -12,11 +12,11 @@ public class Game
 	public Game() {
 		listPlayer = new ArrayList<Player>();
 		listObject = new ArrayList<GameObject>();
-		listPlayer.add(new Player(10, 20, "TOTO"));
+		listPlayer.add(new Player(300, 300, "TOTO"));
 
 		for (int i = 0;i < 10 ; i++ ) {
-			int x = (int)(Math.random()*300);
-			int y = (int)(Math.random()*300);
+			int x = (int)(GameObject.SIZE*2+Math.random()*500-GameObject.SIZE);
+			int y = (int)(GameObject.SIZE*2+Math.random()*500-GameObject.SIZE);
 			listObject.add(new GameObject(x, y));
 		}
 	}
