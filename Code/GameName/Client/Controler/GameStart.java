@@ -1,11 +1,11 @@
-package GameName.Client.Controler;
+package Controler;
 
-import GameName.Client.Model.*;
-import GameName.Client.View.*;
+import Model.*;
+import View.*;
 
 public class GameStart {
 	public GameStart(){
-		Game model = new Board();
+		Game model = new Game();
 		FrameGame view = new FrameGame(model);
 	}
 

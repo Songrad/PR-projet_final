@@ -1,7 +1,7 @@
 /*
- * 
+ *
  */
-
+package Model;
 import java.util.ArrayList;
 
 public class Game
@@ -9,7 +9,7 @@ public class Game
 	private ArrayList<Player> listPlayer;
 	private ArrayList<GameObject> listObject;
 
-	public Board() {
+	public Game() {
 		listPlayer = new ArrayList<Player>();
 		listObject = new ArrayList<GameObject>();
 		listPlayer.add(new Player(10, 20, "TOTO"));
