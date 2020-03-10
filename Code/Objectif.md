@@ -16,6 +16,7 @@
 
 - Torique (option)
 - Collisions entre les joueurs
+- Labyrinthe (basse priorité)
 
 ## Fonctionnalités optionnelles
 
@@ -25,12 +26,6 @@
 * Principe du meilleur joueur
 * Objets spéciaux appliquant des pouvoirs au joueur (vitesse, etc)
 * Différents résultats à la collision entre joueurs en fonction des pouvoirs
-* Labyrinthe (basse priorité)
-
-## Suggestions
-
-- Nom
-  - Pacman.io
 
 ## Ressources utilisées
 
@@ -40,8 +35,6 @@
 
 ## Questions / Réponses
 
-### Questions du sujet
-
 1. **Comment le nombre de joueurs est-il choisi au démarrage du jeu ?**
    - Premier niveau: nombre de joueurs *n* fixé (une fois que *n* joueurs ont rejoint la partie, la partie est lancée)
    - Deuxième niveau: nombre de joueur *n* maximum fixé, mais les joueurs peuvent lancer la partie avant d'avoir atteint ce maximum si tout le monde est d'accord (ex: maximum de 10 joueurs, mais si 4 joueurs sont prêts, la partie est lancée)
@@ -50,8 +43,4 @@
 1. **Comment décide-t-on que le jeu peut commencer ?**
    - cf question 1
 1. **Lorsque le jeu est démarré, par quel moyen les déplacements des joueurs sont-ils visualisables sur l’interface de tous les joueurs ?**
-
-### Nos questions
-
-- Est-ce qu'il y a des collisions entre les joueurs ?
-  - Option de gameplay
+   - Le serveur renvoie la position de chaque joueur à tout le monde pendant la partie
