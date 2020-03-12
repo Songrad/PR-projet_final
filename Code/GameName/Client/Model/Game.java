@@ -14,9 +14,9 @@ public class Game
 		listObject = new ArrayList<GameObject>();
 		listPlayer.add(new Player(300, 300, "TOTO"));
 
-		for (int i = 0;i < 10 ; i++ ) {
-			int x = (int)(GameObject.SIZE*2+Math.random()*500-GameObject.SIZE);
-			int y = (int)(GameObject.SIZE*2+Math.random()*500-GameObject.SIZE);
+		for (int i = 0;i < 100 ; i++ ) {
+			int x = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
+			int y = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
 			listObject.add(new GameObject(x, y));
 		}
 	}
