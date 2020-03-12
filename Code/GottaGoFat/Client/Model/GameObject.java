@@ -1,22 +1,30 @@
 package Model;
 public class GameObject{
-	public static final int SIZE = 10;
-	private int CoordX;
-	private int CoordY;
+	/** Default GameObject size */
+	public static final int DEFAULT_SIZE = 10;
+	private int r;
+	private int x;
+	private int y;
 	private boolean taken;
 
 	public GameObject(int x, int y){
-		CoordX = x;
-		CoordY = y;
+		this(x, y, DEFAULT_SIZE);
+	}
+
+	public GameObject(int x, int y, int r)
+	{
+		this.x = x;
+		this.y = y;
+		this.r = r;
 		taken  = false;
 	}
 
-	public int getX(){return CoordX;}
-	public int getY(){return CoordY;}
-	public void setX(int x){CoordX = x;}
-	public void setY(int y){CoordY = y;}
-	public boolean getTaken(){return taken;}
-	public void flipTaken()   {taken = true;}
-
-	public int getSize(){return (int)(2*Math.PI*SIZE);}
+	public int getX(){return x;}
+	public int getY(){return y;}
+	public int getR(){return r;}
+	public void setX(int x){ this.x = x; }
+	public void setY(int y){ this.y = y; }
+	public void setR(int r){ this.r = r; }
+	public boolean getTaken() { return taken; }
+	public void    setTaken() { taken = true; }
 }

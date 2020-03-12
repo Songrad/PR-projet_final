@@ -52,22 +52,22 @@ class PanelView extends JPanel implements KeyListener
 
         for (GameObject go : this.model.getlistObject())
         {
-            int r = go.getSize() / 4;
+            int r = go.getR();
             int x = go.getX() - r;
             int y = go.getY() - r;
             if (go.getTaken()) g.setColor(Color.blue);
             else g.setColor(Color.green);
 
-            g.fillOval(x, y, r, r);
+            g.fillOval(x, y, r*2, r*2);
         }
 
         g.setColor(Color.red);
         for (Player p : this.model.getlistPlayer())
         {
-            rp = p.getSize() / 2;
+            rp = p.getR();
             int x = p.getX() - rp;
             int y = p.getY() - rp;
-            g.fillOval(x, y, rp, rp);
+            g.fillOval(x, y, rp*2, rp*2);
             g.setColor(Color.black);
             g.drawString(p.getName(), x - (p.getName().length() / 2), y);
         }

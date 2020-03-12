@@ -14,9 +14,9 @@ public class Game
 		listObject = new ArrayList<GameObject>();
 		listPlayer.add(new Player(300, 300, "TOTO"));
 
-		for (int i = 0;i < 300 ; i++ ) {
-			int x = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
-			int y = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
+		for (int i = 0;i < 3000 ; i++ ) {
+			int x = (int)(GameObject.DEFAULT_SIZE *2+Math.random()*600-GameObject.DEFAULT_SIZE);
+			int y = (int)(GameObject.DEFAULT_SIZE *2+Math.random()*600-GameObject.DEFAULT_SIZE);
 			listObject.add(new GameObject(x, y));
 		}
 	}
@@ -27,14 +27,21 @@ public class Game
 	public boolean toucheItem(int idP){
 		boolean touche = false;
 		Player p = listPlayer.get(idP);
-		int r    = GameObject.SIZE/2;
 		for (GameObject go : listObject ) {
-			if (((go.getX()+(2*Math.PI/3)) >= (p.getX() - r) && (go.getX()+(2*Math.PI/3)) <= (p.getX() + r) )&&
-					((go.getY()+(2*Math.PI/3)) >= (p.getY() - r) && (go.getY()+(2*Math.PI/3)) <= (p.getY() + r) )  ) {
-						System.out.println("Object prie");
-						go.flipTaken();
-						p.AddScore();
-						touche = true;
+			// Calculer la distance au carré (théorème de pythagore: a² + b² = c²)
+			int dx = Math.abs(go.getX() - p.getX());
+			int dy = Math.abs(go.getY() - p.getY());
+			int dist = dx*dx + dy*dy;
+
+			// Calculer la proximité minimale: le rayon du joueur
+			int minDist = p.getR() * p.getR();
+
+			if (dist <= minDist)
+			{
+				System.out.println("Objet pris!");
+				go.setTaken();
+				p.AddScore();
+				touche = true;
 			}
 		}
 		return touche;

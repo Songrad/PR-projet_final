@@ -4,7 +4,7 @@ public class Player extends GameObject {
 	private int score;
 
 	public Player(int x,int y,String n){
-		super(x, y);
+		super(x, y, 30);
 		name = n;
 		score = 0;
 	}
