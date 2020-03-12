@@ -14,7 +14,7 @@ public class Game
 		listObject = new ArrayList<GameObject>();
 		listPlayer.add(new Player(300, 300, "TOTO"));
 
-		for (int i = 0;i < 30 ; i++ ) {
+		for (int i = 0;i < 300 ; i++ ) {
 			int x = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
 			int y = (int)(GameObject.SIZE*2+Math.random()*600-GameObject.SIZE);
 			listObject.add(new GameObject(x, y));
@@ -29,8 +29,8 @@ public class Game
 		Player p = listPlayer.get(idP);
 		int r    = GameObject.SIZE/2;
 		for (GameObject go : listObject ) {
-			if ((go.getX() >= (p.getX() - r) && go.getX() <= (p.getX() + r) )&&
-					(go.getY() >= (p.getY() - r) && go.getY() <= (p.getY() + r) )  ) {
+			if (((go.getX()+(2*Math.PI/3)) >= (p.getX() - r) && (go.getX()+(2*Math.PI/3)) <= (p.getX() + r) )&&
+					((go.getY()+(2*Math.PI/3)) >= (p.getY() - r) && (go.getY()+(2*Math.PI/3)) <= (p.getY() + r) )  ) {
 						System.out.println("Object prie");
 						go.flipTaken();
 						p.AddScore();
