@@ -1,42 +1,57 @@
 package IHM;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MenuPanel extends JFrame {
 
-    public MenuPanel()
+    public MenuPanel() throws IOException
     {
-        JPanel head  = new JPanel();
+        this.setLocation(10,10);
+        this.setSize(800,600);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         JPanel lstButton = new JPanel();
 
-        head.setLayout(new BorderLayout());
-        lstButton.setLayout(new GridLayout(3,1));
 
-        JLabel title = new JLabel("Gotta go fat");
-        JLabel info  = new JLabel("Serveur...");
+        // Header
+        JPanel head  = new JPanel(new BorderLayout(16,16));
 
-        head.add(title,BorderLayout.CENTER);
-        head.add(info,BorderLayout.SOUTH);
+        BufferedImage logo = ImageIO.read(getClass().getResourceAsStream("/IHM/img/logo.png"));
+        JLabel title = new JLabel(new ImageIcon(logo));
 
-        JButton[] boutons = new JButton[3];
+        JPanel infoPanel = new JPanel(new GridLayout(1, 2));
+        infoPanel.add(new JLabel("Serveur: 127.0.0.1:1337"));
+        infoPanel.add(new JLabel("Non connecté"));
 
-        boutons[0] = new JButton("Jouer");
-        boutons[1] = new JButton("Options");
-        boutons[2] = new JButton("Meilleurs scores");
+        for (Component c : infoPanel.getComponents())
+            if (c instanceof JLabel)
+                ((JLabel)c).setHorizontalAlignment(JLabel.CENTER);
 
-        for(int i=0; i<boutons.length;i++){
-            lstButton.add(boutons[i]);
-        }
+        // BODY
+        JPanel body = new JPanel(new GridBagLayout());
+        JPanel bodyButtons = new JPanel(new GridLayout(3,1, 8, 8));
 
-        this.add(lstButton);
-        this.add(head,BorderLayout.NORTH);
+        bodyButtons.setPreferredSize(new Dimension(200,200));
 
+        bodyButtons.add(new JButton("Jouer"));
+        bodyButtons.add(new JButton("Options"));
+        bodyButtons.add(new JButton("Records"));
 
+        body.add(bodyButtons);
+
+        head.add(title, BorderLayout.NORTH);
+        head.add(infoPanel);
+
+        this.add(head, BorderLayout.NORTH);
+        this.add(body);
         this.setVisible(true);
     }
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws IOException
     {
         new MenuPanel();
     }
