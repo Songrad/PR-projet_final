@@ -79,21 +79,11 @@ class PanelView extends JPanel implements KeyListener
     {
         int key = ke.getKeyCode();
         yi = xi = 0;
-        switch (key)
-        {
-            case KeyEvent.VK_DOWN:
-                yi = 10;
-                break;
-            case KeyEvent.VK_UP:
-                yi = -10;
-                break;
-            case KeyEvent.VK_RIGHT:
-                xi = 10;
-                break;
-            case KeyEvent.VK_LEFT:
-                xi = -10;
-                break;
-
+        switch (key){
+            case KeyEvent.VK_DOWN:  yi =  10; break;
+            case KeyEvent.VK_UP:    yi = -10; break;
+            case KeyEvent.VK_RIGHT: xi =  10; break;
+            case KeyEvent.VK_LEFT:  xi = -10;break;
         }
         //Pour le mode Thorique
         //if (xi>this.getWidth()-rp)  xi=0;  if (xi<0) xi=this.getWidth()-rp;
