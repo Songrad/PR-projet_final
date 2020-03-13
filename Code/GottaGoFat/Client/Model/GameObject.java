@@ -1,7 +1,7 @@
 package Model;
 public class GameObject{
 	/** Default GameObject size */
-	public static final int DEFAULT_SIZE = 10;
+	public static final int DEFAULT_SIZE = 5;
 	private int r;
 	private int x;
 	private int y;

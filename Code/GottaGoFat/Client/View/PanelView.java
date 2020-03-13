@@ -50,8 +50,9 @@ class PanelView extends JPanel implements KeyListener
         g.setColor(Color.white);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        for (GameObject go : this.model.getlistObject())
-        {
+        //for (GameObject go : this.model.getlistObject())
+        for(int i = 0; i<this.model.getnbPaint();i++){
+						GameObject go = this.model.getlistObject().get(i);
             int r = go.getR();
             int x = go.getX() - r;
             int y = go.getY() - r;
@@ -69,7 +70,8 @@ class PanelView extends JPanel implements KeyListener
             int y = p.getY() - rp;
             g.fillOval(x, y, rp*2, rp*2);
             g.setColor(Color.black);
-            g.drawString(p.getName(), x - (p.getName().length() / 2), y);
+						g.drawString(p.getName(), x - (p.getName().length() / 2), y);
+            g.drawString(p.getName()+" : "+p.getScore()+" points", 100 ,100);
         }
     }
 

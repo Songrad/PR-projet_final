@@ -6,7 +6,7 @@ import View.*;
 public class GameStart {
 	private Game model;
 	public GameStart(){
-		model = new Game();
+		model = new Game((int)(500+Math.random()*501));
 		FrameGame view = new FrameGame(model);
 	}
 
