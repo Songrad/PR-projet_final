@@ -1,16 +1,17 @@
 package Model;
 import java.util.ArrayList;
 
-/*
+/**
  * Classe permettant la gestion des joueurs et des objets
+ * @author Jérémy AUZOU, Dylan DÉPERROIS, Patrice MAISONNEUVE, Edouard VARIN
  */
 
 public class Game
 {
-	/*
+	/**
 	 * Variables
 	 */
-	 private final int GAMESIZE = 600 ;
+	private final int GAMESIZE = 600 ;
 
 	private int nbObject;
 	private int nbObjectVisible;
@@ -18,8 +19,9 @@ public class Game
 	private ArrayList<Player> listPlayer;
 	private ArrayList<GameObject> listObject;
 
-	/*
-	 * Constructeur
+	/**
+	 * Constructeur de la classe
+	 * @param int nbO
 	 */
 	public Game(int nbO) {
 		this.nbObject = nbO;
@@ -35,20 +37,23 @@ public class Game
 		}
 	}
 
-	/*
+	/**
 	 * Méthodes pour récupérer la liste de joueur ou la liste d'objets
+	 * @return
 	 */
 	public ArrayList<Player>     getlistPlayer(){return listPlayer;}
 	public ArrayList<GameObject> getlistObject(){return listObject;}
 
-	/*
+	/**
 	 * Méthode permettant de vérifier si le joueur a ramassé l'objet ou non
+	 * @param int idP
+	 * @return
 	 */
 	public boolean toucheItem(int idP) {
 		boolean touche = false;
 		Player p = listPlayer.get(idP);
 		GameObject gom = null;
-		
+
 		for(int i = 0; i< Math.min(this.listObject.size(), this.nbObjectVisible); i++) {
 			GameObject go = this.listObject.get(i);
 
@@ -75,8 +80,11 @@ public class Game
 		return touche;
 	}
 
-	/*
+	/**
 	 * Méthode calculant les nouvelles coordonnées du joueur
+	 * @param int x
+	 * @param int y
+	 * @param int idP
 	 */
 	public void setCoordPlayer(int x,int y, int idP) {
 		if (toorique) {
@@ -95,8 +103,9 @@ public class Game
 		return Math.min(this.listObject.size(), this.nbObjectVisible);
 	}
 
-	/*
+	/**
 	 * Méthode retournant la fin de partie si la liste d'objet a ramassé est vide
+	 * @return
 	 */
 	public boolean gameDown(){return this.listObject.size() == 0;}
 }
