@@ -4,10 +4,12 @@ import Model.*;
 import View.*;
 
 public class GameStart {
+
 	private Game model;
+
 	public GameStart(){
 		model = new Game((int)(500+Math.random()*501));
-		FrameGame view = new FrameGame(model);
+		new FrameHome(model);
 	}
 
 	public static void main(String[] args) {
