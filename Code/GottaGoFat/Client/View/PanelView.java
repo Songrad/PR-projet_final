@@ -56,8 +56,7 @@ class PanelView extends JPanel implements KeyListener
             int r = go.getR();
             int x = go.getX() - r;
             int y = go.getY() - r;
-            if (go.getTaken()) g.setColor(Color.blue);
-            else g.setColor(Color.green);
+            g.setColor(Color.green);
 
             g.fillOval(x, y, r*2, r*2);
         }

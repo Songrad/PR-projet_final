@@ -9,9 +9,9 @@ public class Player extends GameObject {
 		score = 0;
 	}
 
-	public String getName(){return name;}
+	public String getName()        {return name;}
 	public void   setName(String n){name = n;}
-	public int    getScore(){return score;}
-	public void   AddScore(){score += 1;}
-	public void   AddSize(){this.setR(Math.min(30,this.getR()+1));}
+	public int    getScore()       {return score;}
+	public void   AddScore()       {score += 1;}
+	public void   AddSize()        {this.setR(Math.min(50,this.getR()+1));}
 }
