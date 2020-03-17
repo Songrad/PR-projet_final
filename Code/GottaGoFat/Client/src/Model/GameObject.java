@@ -1,29 +1,68 @@
 package Model;
+/**Classe Permetant la Generation d'object dans le Jeu
+ * @author Jérémy AUZOU, Dylan DÉPERROIS, Patrice MAISONNEUVE, Edouard VARIN
+ */
 public class GameObject{
-	/** Default GameObject size */
+	/** Variable Static */
 	public static final int DEFAULT_SIZE = 5;
+
+	/**Variable globale*/
 	private int r;
 	private int x;
 	private int y;
-	private boolean taken;
 
+	/**Constructeur par Default de la classe
+	 * @param int x
+   * @param int y
+   */
 	public GameObject(int x, int y){
 		this(x, y, DEFAULT_SIZE);
 	}
 
-	public GameObject(int x, int y, int r)
-	{
+	/**Constructeur Complet d'un object ou l'on peux interagir sur sa taille
+	 * @param int x
+	 * @param int y
+   * @param int r
+   */
+	public GameObject(int x, int y, int r){
 		this.x = x;
 		this.y = y;
 		this.r = r;
-		taken  = false;
 	}
 
-	public int getX(){return x;}
-	public int getY(){return y;}
-	public int getR(){return r;}
+	/**
+	* Retourne la valeur de r
+	* @return
+	*/
+	public int getR() { return r; }
 
-	public void setX(int x){ this.x = x; }
-	public void setY(int y){ this.y = y; }
-	public void setR(int r){ this.r = r; }
+	/**
+	* Remplace la valeur de r
+	* @param int r
+	*/
+	public void setR(int r) { this.r = r; }
+
+	/**
+	* Retourne la valeur de x
+	* @return
+	*/
+	public int getX() { return x; }
+
+	/**
+	* Remplace la valeur de x
+	* @param int x
+	*/
+	public void setX(int x) { this.x = x; }
+
+	/**
+	* Retourne la valeur de y
+	* @return
+	*/
+	public int getY() { return y; }
+
+	/**
+	* Remplace la valeur de y
+	* @param int y
+	*/
+	public void setY(int y) { this.y = y; }
 }
