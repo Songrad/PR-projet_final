@@ -1,7 +1,9 @@
 package Controler;
 
 import Model.*;
-import View.*;
+import View.Menu.FrameHome;
+
+import java.util.ArrayList;
 
 /**
  * Classe servant de controleur pour le lancement du jeu et du visuel
@@ -14,15 +16,22 @@ public class GameStart {
 	 * Variable
 	 */
 	private Game model;
+	private String message = "";
+	private FrameHome frameHome;
 
 	/**
 	 * Contructeur par défaut
 	 */
 	public GameStart() {
-		model = new Game((int)(500+Math.random()*501));
-		new FrameHome(model);
+		model = new Game((int)(500+Math.random()*501), this);
+		this.frameHome = new FrameHome(this);
 	}
 
+
+
+	public void envoyerMessage(String message){this.message += "\n[CHIENNE] " + message;}
+
+	public String getMessagesChat(){return this.message;}
 	/**
 	 * Méthode demandant le changement de coordonnées au métier
 	 * @param int x
@@ -40,6 +49,26 @@ public class GameStart {
 	public boolean toucheItem(int idP) {
 		return model.toucheItem(idP);
 	}
+
+	public ArrayList<Player> getListPlayer()
+	{
+		return this.model.getlistPlayer();
+	}
+
+	public ArrayList<GameObject> getListObject(){
+		return this.model.getlistObject();
+	}
+
+	public int getNbPaint(){
+		return this.model.getnbPaint();
+	}
+
+	public void majIHM()
+	{
+		this.frameHome.majIHM();
+	}
+
+
 
 	/**
 	 * Main de lancement du jeu

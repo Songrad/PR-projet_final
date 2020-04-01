@@ -1,21 +1,30 @@
-package View;
+package View.Game;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
+import Controler.GameStart;
 import Model.*;
 
 public class FrameGame extends JFrame {
-	private Game model;
-	public FrameGame(Game model, JFrame menuFrame){
+
+	private GameStart ctrl;
+	private PanelMain panelMain;
+
+	public FrameGame(GameStart controleur, JFrame menuFrame){
+
 		this.setTitle("Game");
-		PanelView pl = new PanelView(model);
-		this.setContentPane(pl);
+		this.ctrl = controleur;
+		this.panelMain = new PanelMain(this.ctrl);
+		this.setContentPane(panelMain);
 		this.setSize(600, 600);
 		this.addWindowListener(new GameWindowManager(menuFrame));
 		this.setVisible(true);
+	}
+
+	public void majIHM()
+	{
+		this.panelMain.majIHM();
 	}
 }
 

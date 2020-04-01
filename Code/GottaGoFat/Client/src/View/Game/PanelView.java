@@ -1,22 +1,24 @@
-package View;
+package View.Game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Controler.GameStart;
 import Model.*;
 
 class PanelView extends JPanel implements KeyListener
 {
-    private Game model;
+    //private Game model;
+    private GameStart ctrl;
     private int idP;
     private int xi, yi, rp;
 
     private ArrowKeyManager akm;
 
-    public PanelView(Game model)
+    public PanelView(GameStart controleur)
     {
-        this.model = model;
+        this.ctrl = controleur;
         this.idP = 0; // TODO: Paramètre
         this.setOpaque(true);
         this.setFocusable(true);
@@ -38,8 +40,9 @@ class PanelView extends JPanel implements KeyListener
 
 			xi += dx; yi += dy;
 
-			this.model.setCoordPlayer(dx, dy, idP);
-			this.model.toucheItem(idP);
+
+            this.ctrl.setCoordPlayer(dx,dy,idP);
+            this.ctrl.toucheItem(idP);
 
 			this.repaint();
 		}).start();
@@ -51,8 +54,8 @@ class PanelView extends JPanel implements KeyListener
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         //for (GameObject go : this.model.getlistObject())
-        for(int i = 0; i<this.model.getnbPaint();i++){
-						GameObject go = this.model.getlistObject().get(i);
+        for(int i = 0; i<this.ctrl.getNbPaint();i++){
+						GameObject go = this.ctrl.getListObject().get(i);
             int r = go.getR();
             int x = go.getX() - r;
             int y = go.getY() - r;
@@ -62,7 +65,7 @@ class PanelView extends JPanel implements KeyListener
         }
 
         g.setColor(Color.red);
-        for (Player p : this.model.getlistPlayer())
+        for (Player p : this.ctrl.getListPlayer())
         {
             rp = p.getR();
             int x = p.getX() - rp;
@@ -87,8 +90,10 @@ class PanelView extends JPanel implements KeyListener
         //Pour le mode Thorique
         //if (xi>this.getWidth()-rp)  xi=0;  if (xi<0) xi=this.getWidth()-rp;
         //if (yi>this.getHeight()-rp) yi=0; if  (yi<0) yi=this.getHeight()-rp;
-        this.model.setCoordPlayer(xi, yi, idP);
-        this.model.toucheItem(idP);
+        //this.model.setCoordPlayer(xi, yi, idP);
+        //this.model.toucheItem(idP);
+        this.ctrl.setCoordPlayer(xi,yi,idP);
+        this.ctrl.toucheItem(idP);
         this.revalidate();
         this.repaint();
     }

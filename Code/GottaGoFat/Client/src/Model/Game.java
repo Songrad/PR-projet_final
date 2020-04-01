@@ -1,4 +1,6 @@
 package Model;
+import Controler.GameStart;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +15,8 @@ public class Game
 	 */
 	private final int GAMESIZE = 600 ;
 
+	private GameStart ctrl;
+
 	private int nbObject;
 	private int nbObjectVisible;
 	private boolean toorique =true;
@@ -23,12 +27,20 @@ public class Game
 	 * Constructeur de la classe
 	 * @param int nbO
 	 */
-	public Game(int nbO) {
+	public Game(int nbO, GameStart controleur) {
+
+		this.ctrl = controleur;
 		this.nbObject = nbO;
 		this.nbObjectVisible = nbO/10;
 		listPlayer = new ArrayList<Player>();
 		listObject = new ArrayList<GameObject>();
-		listPlayer.add(new Player(300, 300, "TOTO"));
+		listPlayer.add(new Player(300, 300, "TOTO", this.ctrl));
+		Player pd = new Player(300, 300, "PD", this.ctrl);
+		pd.setScore(9999);
+		listPlayer.add(pd);
+		Player nig = new Player(300, 300, "NIG", this.ctrl);
+		nig.setScore(-5);
+		listPlayer.add(nig);
 
 		for (int i = 0;i < this.nbObject ; i++ ) {
 			int x = (int)(Math.random()*(GAMESIZE - GameObject.DEFAULT_SIZE*8));
@@ -108,4 +120,5 @@ public class Game
 	 * @return
 	 */
 	public boolean gameDown(){return this.listObject.size() == 0;}
+
 }
