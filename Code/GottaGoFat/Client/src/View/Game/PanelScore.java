@@ -5,6 +5,8 @@ import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,6 +16,10 @@ public class PanelScore extends JPanel
 
     private GameStart ctrl;
     private JLabel[] bestPlayer;
+    private JLabel timerLabel;
+    private JLabel objRest;
+    private Timer timer;
+    private int TIME = 10;
 
     public PanelScore(GameStart controleur)
     {
@@ -21,10 +27,10 @@ public class PanelScore extends JPanel
 
         this.setLayout(new GridLayout(6,1));
 
-        JLabel score   = new JLabel("temps : " + 148);
-        JLabel objRest = new JLabel("Object restant : " + 15);
+        this.timerLabel   = new JLabel("Waiting...");
+        this.objRest = new JLabel("Object restant : " + controleur.getListObject().size());
 
-        this.add(score);
+        this.add(timerLabel);
         this.add(objRest);
 
         ArrayList<Player> lstPlayer = this.ctrl.getListPlayer();
@@ -39,12 +45,35 @@ public class PanelScore extends JPanel
             this.add(bestPlayer[i]);
         }
 
+
+        this.timerLabel.setText("Temps : " + TIME );
+
+        timer = new Timer(1000, new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                TIME--;
+
+                if(TIME >= 1){
+                    timerLabel.setText("Temps : " + TIME);
+                }
+                else{
+                    timer.stop();
+                    timerLabel.setText("Terminé !");
+                    Toolkit.getDefaultToolkit().beep();
+                }
+
+            }
+        });
+
+        timer.start();
+
     }
 
 
     public void majScore()
     {
-
 
         ArrayList<Player> lstPlayer = this.ctrl.getListPlayer();
         Collections.sort(lstPlayer, Collections.reverseOrder());
@@ -55,5 +84,8 @@ public class PanelScore extends JPanel
             Player p = lstPlayer.get(i);
             this.bestPlayer[i].setText(p.getName() + " : " + p.getScore());
         }
+
+        this.objRest.setText("Object restant : " + this.ctrl.getListObject().size());
     }
+
 }
