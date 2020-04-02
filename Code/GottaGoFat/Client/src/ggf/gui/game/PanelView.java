@@ -28,6 +28,7 @@ class PanelView extends JPanel
         this.setFocusable(true);
         this.akm = new ArrowKeyManager();
         this.addKeyListener(akm);
+        this.addMouseListener(new MouseHandler(this));
 
 		new Timer(16, e -> {
 			int keys = akm.getKeys();
@@ -160,5 +161,19 @@ class ArrowKeyManager extends KeyAdapter
         if (downDown) keys |= DOWN;
 
         return keys;
+    }
+}
+
+class MouseHandler extends MouseAdapter {
+
+    private final PanelView pv;
+
+    public MouseHandler(PanelView pv) {
+        this.pv = pv;
+    }
+
+    public void mouseClicked(MouseEvent e)
+    {
+        pv.grabFocus();
     }
 }

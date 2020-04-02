@@ -28,7 +28,7 @@ public class PanelScore extends JPanel
         this.setLayout(new GridLayout(10,1,10,10));
 
         this.timerLabel   = new JLabel("Waiting...");
-        this.objRest = new JLabel("Object restant : " + controleur.getObjectList().size());
+        this.objRest = new JLabel("Objets restants : " + this.ctrl.getObjectList().size());
 
         this.add(timerLabel);
         this.add(objRest);
@@ -69,9 +69,7 @@ public class PanelScore extends JPanel
 
     public void majScore()
     {
-
-        ArrayList<Player> lstPlayer = new ArrayList<>();
-        Collections.copy(this.ctrl.getPlayerList(), lstPlayer);
+        ArrayList<Player> lstPlayer = new ArrayList<>(this.ctrl.getPlayerList());
         lstPlayer.sort(Collections.reverseOrder());
 
 
