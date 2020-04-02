@@ -1,7 +1,6 @@
-package View.Game;
+package ggf.gui.game;
 
-import Controler.GameStart;
-import Model.Game;
+import ggf.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +10,9 @@ public class PanelMain extends JPanel
 
     private PanelView panelView;
     private PanelInfo panelInfo;
-    private GameStart ctrl;
+    private Controller ctrl;
 
-    public PanelMain(GameStart controleur)
+    public PanelMain(Controller controleur)
     {
         ctrl = controleur;
 

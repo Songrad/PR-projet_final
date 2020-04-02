@@ -1,6 +1,6 @@
-package View.Game;
+package ggf.gui.game;
 
-import Controler.GameStart;
+import ggf.Controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,9 +13,9 @@ public class PanelInfo extends JPanel implements ActionListener
     private PanelText panelText;
     private PanelScore panelScore;
     private JButton quit;
-    private GameStart ctrl;
+    private Controller ctrl;
 
-    public PanelInfo(GameStart ctrl)
+    public PanelInfo(Controller ctrl)
     {
         this.ctrl = ctrl;
 

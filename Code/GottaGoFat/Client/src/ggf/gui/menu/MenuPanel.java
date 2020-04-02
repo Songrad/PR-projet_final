@@ -1,8 +1,7 @@
-package View.Menu;
+package ggf.gui.menu;
 
-import Controler.GameStart;
-import Model.Game;
-import View.Game.FrameGame;
+import ggf.Controller;
+import ggf.gui.game.FrameGame;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -13,10 +12,10 @@ import java.io.IOException;
 public class MenuPanel extends JPanel
 {
 
-	private GameStart ctrl;
+	private Controller ctrl;
 	private FrameGame frameGame;
 
-	public MenuPanel(GameStart controleur)
+	public MenuPanel(Controller controleur)
 	{
 		this.setLayout(new GridBagLayout());
 		this.ctrl = controleur;
@@ -27,7 +26,7 @@ public class MenuPanel extends JPanel
 			// Logo
 			BufferedImage logo = null;
 			try {
-				logo = ImageIO.read(getClass().getResourceAsStream("/View/img/logo.png"));
+				logo = ImageIO.read(getClass().getResourceAsStream("/ggf/gui/img/logo.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

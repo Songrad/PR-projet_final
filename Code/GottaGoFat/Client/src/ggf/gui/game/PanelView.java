@@ -1,24 +1,28 @@
-package View.Game;
+package ggf.gui.game;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
-import Controler.GameStart;
-import Model.*;
+import ggf.Controller;
+import ggf.game.*;
 
-class PanelView extends JPanel implements KeyListener
+class PanelView extends JPanel
 {
-    //private Game model;
-    private GameStart ctrl;
+    //private Game ggf.model;
+    private Controller ctrl;
     private int idP;
     private int xi, yi, rp;
 
     private ArrowKeyManager akm;
 
-    public PanelView(GameStart controleur)
+    public PanelView(Controller controleur)
     {
         this.ctrl = controleur;
+
+        this.setPreferredSize(new Dimension(600,600));
+
         this.idP = 0; // TODO: Paramètre
         this.setOpaque(true);
         this.setFocusable(true);
@@ -28,9 +32,9 @@ class PanelView extends JPanel implements KeyListener
 		new Timer(16, e -> {
 			int keys = akm.getKeys();
 
-			final int STEP = 2;
+			final short STEP = 2;
 
-			int dx = 0, dy = 0;
+			short dx = 0, dy = 0;
 
 			if ((keys & ArrowKeyManager.LEFT)  != 0) dx -= STEP;
 			if ((keys & ArrowKeyManager.RIGHT) != 0) dx += STEP;
@@ -41,8 +45,7 @@ class PanelView extends JPanel implements KeyListener
 			xi += dx; yi += dy;
 
 
-            this.ctrl.setCoordPlayer(dx,dy,idP);
-            this.ctrl.toucheItem(idP);
+            this.ctrl.movePlayer(idP, dx,dy);
 
 			this.repaint();
 		}).start();
@@ -50,13 +53,15 @@ class PanelView extends JPanel implements KeyListener
 
     public void paintComponent(Graphics g)
     {
+        ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         g.setColor(Color.white);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
-        //for (GameObject go : this.model.getlistObject())
-        for(int i = 0; i<this.ctrl.getNbPaint();i++){
-						GameObject go = this.ctrl.getListObject().get(i);
-            int r = go.getR();
+        //for (GameObject go : this.ggf.model.getlistObject())
+        for(int i = 0; i<this.ctrl.getVisibleObjectCount();i++){
+						GameObject go = this.ctrl.getObjectList().get(i);
+            int r = go.getRadius();
             int x = go.getX() - r;
             int y = go.getY() - r;
             g.setColor(Color.green);
@@ -64,46 +69,50 @@ class PanelView extends JPanel implements KeyListener
             g.fillOval(x, y, r*2, r*2);
         }
 
-        g.setColor(Color.red);
-        for (Player p : this.ctrl.getListPlayer())
+
+        ArrayList<Player> playerList = this.ctrl.getPlayerList();
+        for (int i = 0; i < playerList.size(); i++)
         {
-            rp = p.getR();
+            Player p = playerList.get(i);
+            if (i == idP)
+                g.setColor(Color.red);
+            rp = p.getRadius();
             int x = p.getX() - rp;
             int y = p.getY() - rp;
-            g.fillOval(x, y, rp*2, rp*2);
+            g.fillOval(x, y, rp * 2, rp * 2);
+
+            // Débordement gauche/haut
+            if (x < 0) {
+                g.fillOval(x + Game.MAP_SIZE, y, rp * 2, rp * 2);
+            }
+
+            if (y < 0) {
+                g.fillOval(x, y + Game.MAP_SIZE, rp * 2, rp * 2);
+            }
+
+            // Débordement bas/droite
+            if (x > Game.MAP_SIZE - 2*rp) {
+                g.fillOval(x - Game.MAP_SIZE, y, rp * 2, rp * 2);
+            }
+
+            if (y > Game.MAP_SIZE - 2*rp) {
+                g.fillOval(x, y - Game.MAP_SIZE, rp * 2, rp * 2);
+            }
+
+            // Débordement des coins
+            if (x < 0 && y < 0) { // HAUT GAUCHE
+                g.fillOval(x + Game.MAP_SIZE, y + Game.MAP_SIZE, rp * 2, rp * 2);
+            } else if (x < 0 && y > Game.MAP_SIZE - 2*rp) { // BAS GAUCHE
+                g.fillOval(x + Game.MAP_SIZE, y - Game.MAP_SIZE, rp * 2, rp * 2);
+            } else if  (x > Game.MAP_SIZE - 2*rp && y > Game.MAP_SIZE - 2*rp) { // BAS DROITE
+                g.fillOval(x - Game.MAP_SIZE, y - Game.MAP_SIZE, rp * 2, rp * 2);
+            } else if (x > Game.MAP_SIZE - 2*rp && y < 0) { // HAUT DROITE
+                g.fillOval(x - Game.MAP_SIZE, y + Game.MAP_SIZE, rp * 2, rp * 2);
+            }
+
             g.setColor(Color.black);
-						g.drawString(p.getName(), x - (p.getName().length() / 2), y);
-            g.drawString(p.getName()+" : "+p.getScore()+" points", 100 ,100);
+            g.drawString(p.getName(), x - (p.getName().length() / 2), y);
         }
-    }
-
-    public void keyPressed(KeyEvent ke)
-    {
-        int key = ke.getKeyCode();
-        yi = xi = 0;
-        switch (key){
-            case KeyEvent.VK_DOWN:  yi =  10; break;
-            case KeyEvent.VK_UP:    yi = -10; break;
-            case KeyEvent.VK_RIGHT: xi =  10; break;
-            case KeyEvent.VK_LEFT:  xi = -10;break;
-        }
-        //Pour le mode Thorique
-        //if (xi>this.getWidth()-rp)  xi=0;  if (xi<0) xi=this.getWidth()-rp;
-        //if (yi>this.getHeight()-rp) yi=0; if  (yi<0) yi=this.getHeight()-rp;
-        //this.model.setCoordPlayer(xi, yi, idP);
-        //this.model.toucheItem(idP);
-        this.ctrl.setCoordPlayer(xi,yi,idP);
-        this.ctrl.toucheItem(idP);
-        this.revalidate();
-        this.repaint();
-    }
-
-    public void keyReleased(KeyEvent ke)
-    {
-    }
-
-    public void keyTyped(KeyEvent ke)
-    {
     }
 }
 

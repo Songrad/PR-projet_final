@@ -1,8 +1,7 @@
-package View.Game;
+package ggf.gui.game;
 
-import Controler.GameStart;
+import ggf.Controller;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,10 +14,9 @@ public class PanelText extends JPanel implements ActionListener
     private JTextArea display;
     private JTextField input;
 
-    private GameStart ctrl;
+    private Controller ctrl;
 
-
-    public PanelText(GameStart ctrl)
+    public PanelText(Controller ctrl)
     {
         this.ctrl = ctrl;
 
@@ -49,11 +47,11 @@ public class PanelText extends JPanel implements ActionListener
         String message = this.input.getText();
         if (message.trim().equals("")) return;
 
-        this.ctrl.envoyerMessage(message);
+        this.ctrl.sendMessage(message);
 
         this.input.setText("");
 
-        this.display.setText(this.ctrl.getMessagesChat());
+        this.display.setText(this.ctrl.getMessages());
     }
 
     public void majChat(){

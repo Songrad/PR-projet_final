@@ -1,8 +1,7 @@
-package View.Menu;
+package ggf.gui.menu;
 
-import Controler.GameStart;
-import Model.Game;
-import View.Game.FrameGame;
+import ggf.Controller;
+import ggf.gui.game.FrameGame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,10 +11,10 @@ public class FrameHome extends JFrame
     private JPanel bottomGridBagPanel = null;
     private JPanel bottomPanel = null;
     private MenuPanel menuPanel;
-    private GameStart ctrl;
+    private Controller ctrl;
     private FrameGame frameGame;
 
-    public FrameHome(GameStart controleur)
+    public FrameHome(Controller controleur)
     {
         this.ctrl = controleur;
 

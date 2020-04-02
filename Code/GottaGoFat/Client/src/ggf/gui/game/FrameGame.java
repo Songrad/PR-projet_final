@@ -1,17 +1,16 @@
-package View.Game;
+package ggf.gui.game;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import Controler.GameStart;
-import Model.*;
+import ggf.Controller;
 
 public class FrameGame extends JFrame {
 
-	private GameStart ctrl;
+	private Controller ctrl;
 	private PanelMain panelMain;
 
-	public FrameGame(GameStart controleur, JFrame menuFrame){
+	public FrameGame(Controller controleur, JFrame menuFrame){
 
 		this.setTitle("Game");
 		this.ctrl = controleur;
@@ -19,6 +18,7 @@ public class FrameGame extends JFrame {
 		this.setContentPane(panelMain);
 		this.setSize(600, 600);
 		this.addWindowListener(new GameWindowManager(menuFrame));
+		this.pack();
 		this.setVisible(true);
 	}
 

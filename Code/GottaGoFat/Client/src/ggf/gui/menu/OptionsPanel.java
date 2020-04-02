@@ -1,4 +1,4 @@
-package View.Menu;
+package ggf.gui.menu;
 
 import javax.swing.*;
 import java.awt.*;
