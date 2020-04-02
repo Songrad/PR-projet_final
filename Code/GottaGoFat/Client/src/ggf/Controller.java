@@ -75,7 +75,7 @@ public class Controller
 	 */
 	public void sendMessage(String message)
 	{
-		this.chat += "[Local] " + message;
+		this.chat += "[Local] " + message + System.lineSeparator();
 	}
 
 	/**
