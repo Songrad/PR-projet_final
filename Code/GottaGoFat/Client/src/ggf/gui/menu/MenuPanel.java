@@ -1,6 +1,7 @@
 package ggf.gui.menu;
 
 import ggf.Controller;
+import ggf.ControllerClient;
 import ggf.gui.game.FrameGame;
 
 import javax.imageio.ImageIO;
@@ -60,15 +61,21 @@ public class MenuPanel extends JPanel
 				FrameHome home = (FrameHome)SwingUtilities.getWindowAncestor(this);
 				home.setPanel(null);
 				home.setVisible(false);
-				//new FrameGame(ctrl, home);
-				this.frameGame = new FrameGame(ctrl, home);
+
+				this.frameGame = new FrameGame(ctrl);
+
+				if (ctrl instanceof ControllerClient) {
+					ControllerClient ccl = (ControllerClient) ctrl;
+
+					ccl.connect();
+				}
 			});
 
 			JButton options = new JButton("Options");
 
 			options.addActionListener(e -> {
 				FrameHome home = (FrameHome)SwingUtilities.getWindowAncestor(this);
-				home.setPanel(new OptionsPanel());
+				home.setPanel(new OptionsPanel(ctrl));
 			});
 
 			JButton best = new JButton("Meilleurs scores");
@@ -91,6 +98,7 @@ public class MenuPanel extends JPanel
 
 	public void majIHM()
 	{
+		System.out.println("MAJ IHM");
 		this.frameGame.majIHM();
 	}
 }

@@ -8,7 +8,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class PanelScore extends JPanel
@@ -28,7 +27,7 @@ public class PanelScore extends JPanel
         this.setLayout(new GridLayout(10,1,10,10));
 
         this.timerLabel   = new JLabel("Waiting...");
-        this.objRest = new JLabel("Objets restants : " + this.ctrl.getObjectList().size());
+        this.objRest = new JLabel("Objets restants : " + this.ctrl.getRemainingObjectCount());
 
         this.add(timerLabel);
         this.add(objRest);
@@ -37,29 +36,28 @@ public class PanelScore extends JPanel
         ArrayList<Player> lstPlayer = this.ctrl.getPlayerList();
         Collections.sort(lstPlayer);
 
-        this.bestPlayer = new JLabel[3];
+        this.bestPlayer = new JLabel[]{new JLabel(), new JLabel(), new JLabel()};
 
-        for(int i = 0; i < lstPlayer.size(); i++)
+        for (int i = 0; i < 3; i++)
+            this.add(bestPlayer[i]);
+
+        for(int i = 0; i < Math.min(3, lstPlayer.size()); i++)
         {
             int tmp = i + 1;
             Player p = lstPlayer.get(i);
 
-            this.bestPlayer[i] = new JLabel("#" + tmp + " - " +p.getName() + " : " + p.getScore());
-            this.add(bestPlayer[i]);
+            this.bestPlayer[i].setText("#" + tmp + " - " +p.getName() + " : " + p.getScore());
+            // this.add(bestPlayer[i]);
         }
 
 
         this.timerLabel.setText("Temps : " + TIME );
 
-        timer = new Timer(1000, new ActionListener()
+        timer = new Timer(1000, e ->
         {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                TIME++;
+            TIME++;
 
-                timerLabel.setText("Temps : " + TIME);
-            }
+            timerLabel.setText("Temps : " + TIME);
         });
 
         timer.start();
@@ -73,7 +71,7 @@ public class PanelScore extends JPanel
         lstPlayer.sort(Collections.reverseOrder());
 
 
-        for(int i = 0; i < lstPlayer.size(); i++)
+        for(int i = 0; i < Math.min(3, lstPlayer.size()); i++)
         {
             int tmp = i + 1;
 
@@ -81,7 +79,7 @@ public class PanelScore extends JPanel
             this.bestPlayer[i].setText("#" + tmp + " - " + p.getName() + " : " + p.getScore());
         }
 
-        this.objRest.setText("Objets restants : " + this.ctrl.getObjectList().size());
+        this.objRest.setText("Objets restants : " + this.ctrl.getRemainingObjectCount());
     }
 
 }

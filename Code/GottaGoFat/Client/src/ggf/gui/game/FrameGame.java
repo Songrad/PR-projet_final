@@ -10,14 +10,13 @@ public class FrameGame extends JFrame {
 	private Controller ctrl;
 	private PanelMain panelMain;
 
-	public FrameGame(Controller controleur, JFrame menuFrame){
+	public FrameGame(Controller controleur){
 
 		this.setTitle("Game");
 		this.ctrl = controleur;
 		this.panelMain = new PanelMain(this.ctrl);
 		this.setContentPane(panelMain);
 		this.setSize(600, 600);
-		this.addWindowListener(new GameWindowManager(menuFrame));
 		this.pack();
 		this.setVisible(true);
 	}

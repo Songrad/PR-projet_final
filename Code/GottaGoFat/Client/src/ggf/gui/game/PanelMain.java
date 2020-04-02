@@ -29,5 +29,6 @@ public class PanelMain extends JPanel
     public void majIHM()
     {
         this.panelInfo.majInfo();
+        this.panelView.repaint();
     }
 }

@@ -1,29 +1,26 @@
 package ggf.game;
 
-import ggf.Controller;
-
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Game
 {
 	public final static short MAP_SIZE = 600;
 
-	private final Controller controller;
 	private final int objectCount;
 	private final int visibleObjectCount;
 	private final boolean looping;
+	private boolean invisible;
 
 	private final ArrayList<Player> playerList;
 	private final ArrayList<GameObject> objectList;
 
 	/**
 	 * Construit une nouvelle instance de Game
-	 * @param controller contrôleur
 	 * @param objectCount nombre d'objets total à récupérer
 	 */
-	public Game(Controller controller, int objectCount)
+	public Game(int objectCount, boolean invisible)
 	{
-		this.controller = controller;
 		this.objectCount = objectCount;
 		this.visibleObjectCount = objectCount / 10;
 		this.looping = true;
@@ -51,9 +48,9 @@ public class Game
 	 * @param name nom du Player
 	 * @return identifiant du Player
 	 */
-	public int addPlayer(String name)
+	public int addPlayer(String name, Color color)
 	{
-		this.playerList.add(new Player((short)(MAP_SIZE / 2), (short)(MAP_SIZE / 2), name));
+		this.playerList.add(new Player((short)(MAP_SIZE / 2), (short)(MAP_SIZE / 2), name, color));
 		return this.playerList.size() - 1;
 	}
 
@@ -114,8 +111,6 @@ public class Game
 
 			this.objectList.removeAll(hitObjects);
 		}
-
-		if (hit) controller.updateGui();
 	}
 
 	/**
@@ -173,10 +168,10 @@ public class Game
 	}
 
 	/**
-	 * Obtient le nombre d'objets a dessiner en fonction de la longue de la liste.
+	 * Obtient le nombre d'objets restants.
 	 * @return nombre d'objet
 	 */
-	public int getVisibleObjectCount() { return Math.min(this.objectList.size(), this.visibleObjectCount); }
+	public int getRemainingObjectCount() { return this.objectList.size(); }
 
 	/**
 	 * Permet de savoir si la partie est terminée.
@@ -187,12 +182,19 @@ public class Game
 	}
 
 	/**
-	 * Obtient la liste complète d'objets.
+	 * Obtient la liste des objets visibles.
 	 * @return liste d'objet
 	 */
-	public ArrayList<GameObject> getObjectList()
+	public ArrayList<GameObject> getVisibleObjectList()
 	{
-		return objectList;
+		ArrayList<GameObject> al = new ArrayList<>();
+
+		for (int i = 0, limit = Math.min(this.visibleObjectCount, this.objectList.size());
+			 i < limit; i++) {
+			al.add(this.objectList.get(i));
+		}
+
+		return al;
 	}
 
 	/**
@@ -202,5 +204,10 @@ public class Game
 	public ArrayList<Player> getPlayerList()
 	{
 		return playerList;
+	}
+
+	public boolean getInvisible()
+	{
+		return this.invisible;
 	}
 }

@@ -23,7 +23,7 @@ class PanelView extends JPanel
 
         this.setPreferredSize(new Dimension(600,600));
 
-        this.idP = 0; // TODO: Paramètre
+        this.idP = this.ctrl.getIdPlayer(); // TODO: Paramètre
         this.setOpaque(true);
         this.setFocusable(true);
         this.akm = new ArrowKeyManager();
@@ -32,23 +32,7 @@ class PanelView extends JPanel
 
 		new Timer(16, e -> {
 			int keys = akm.getKeys();
-
-			final short STEP = 2;
-
-			short dx = 0, dy = 0;
-
-			if ((keys & ArrowKeyManager.LEFT)  != 0) dx -= STEP;
-			if ((keys & ArrowKeyManager.RIGHT) != 0) dx += STEP;
-
-			if ((keys & ArrowKeyManager.UP)   != 0) dy -= STEP;
-			if ((keys & ArrowKeyManager.DOWN) != 0) dy += STEP;
-
-			xi += dx; yi += dy;
-
-
-            this.ctrl.movePlayer(idP, dx,dy);
-
-			this.repaint();
+            this.ctrl.sendInputs(keys);
 		}).start();
     }
 
@@ -60,8 +44,7 @@ class PanelView extends JPanel
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         //for (GameObject go : this.ggf.model.getlistObject())
-        for(int i = 0; i<this.ctrl.getVisibleObjectCount();i++){
-						GameObject go = this.ctrl.getObjectList().get(i);
+        for(GameObject go : this.ctrl.getVisibleObjects()){
             int r = go.getRadius();
             int x = go.getX() - r;
             int y = go.getY() - r;
@@ -74,9 +57,10 @@ class PanelView extends JPanel
         ArrayList<Player> playerList = this.ctrl.getPlayerList();
         for (int i = 0; i < playerList.size(); i++)
         {
+            if (this.ctrl.isInvisible() && i != idP) continue;
+
             Player p = playerList.get(i);
-            if (i == idP)
-                g.setColor(Color.red);
+            g.setColor(p.getColor());
             rp = p.getRadius();
             int x = p.getX() - rp;
             int y = p.getY() - rp;
@@ -117,55 +101,8 @@ class PanelView extends JPanel
     }
 }
 
-class ArrowKeyManager extends KeyAdapter
+class MouseHandler extends MouseAdapter
 {
-    public static final int LEFT = 0b1000;
-    public static final int UP = 0b0100;
-    public static final int RIGHT = 0b0010;
-    public static final int DOWN = 0b0001;
-
-    private boolean leftDown = false;
-    private boolean upDown = false;
-    private boolean rightDown = false;
-    private boolean downDown = false;
-
-    public void keyPressed(KeyEvent e)
-    {
-        switch (e.getKeyCode())
-        {
-            case KeyEvent.VK_LEFT: leftDown = true; break;
-            case KeyEvent.VK_UP: upDown = true; break;
-            case KeyEvent.VK_RIGHT: rightDown = true; break;
-            case KeyEvent.VK_DOWN: downDown = true; break;
-        }
-    }
-
-    public void keyReleased(KeyEvent e)
-    {
-        switch (e.getKeyCode())
-        {
-            case KeyEvent.VK_LEFT: leftDown = false; break;
-            case KeyEvent.VK_UP: upDown = false; break;
-            case KeyEvent.VK_RIGHT: rightDown = false; break;
-            case KeyEvent.VK_DOWN: downDown = false; break;
-        }
-    }
-
-    public int getKeys()
-    {
-        int keys = 0;
-
-        if (leftDown) keys |= LEFT;
-        if (upDown) keys |= UP;
-        if (rightDown) keys |= RIGHT;
-        if (downDown) keys |= DOWN;
-
-        return keys;
-    }
-}
-
-class MouseHandler extends MouseAdapter {
-
     private final PanelView pv;
 
     public MouseHandler(PanelView pv) {
