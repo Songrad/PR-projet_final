@@ -38,7 +38,6 @@ public class GameServer
 		Message msg;
 		while (true) try
 		{
-			System.out.println("Receiving");
 			msg = server.receive();
 
 			if (!hmClients.containsKey(msg.getAddress()))
@@ -61,7 +60,6 @@ public class GameServer
 		if (hmClients.size() >= 2) {
 			for (ClientHandler handler : hmClients.values())
 			{
-				System.out.println("Moving based on inputs");
 				int keys = handler.getInputs();
 				final short STEP = 2;
 
@@ -78,7 +76,6 @@ public class GameServer
 		}
 
 		byte[] gs = new GameState(game).getDataBytes();
-		System.out.println("Sending game state");
 		for (ClientHandler handler : hmClients.values())
 		{
 			try

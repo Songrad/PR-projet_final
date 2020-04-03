@@ -23,7 +23,6 @@ class PanelView extends JPanel
 
         this.setPreferredSize(new Dimension(600,600));
 
-        this.idP = this.ctrl.getIdPlayer(); // TODO: Paramètre
         this.setOpaque(true);
         this.setFocusable(true);
         this.akm = new ArrowKeyManager();
@@ -38,6 +37,8 @@ class PanelView extends JPanel
 
     public void paintComponent(Graphics g)
     {
+        this.idP = ctrl.getIdPlayer();
+
         ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g.setColor(Color.white);

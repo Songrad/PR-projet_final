@@ -17,15 +17,16 @@ public class ControllerClient implements Controller
 	private GameState state;
 	private FrameHome frame;
 
-	private String playerName;
-	private String serverAddress;
-	private Color color;
+	private String playerName = "Glouton";
+	private String serverAddress = "localhost:57300";
+	private Color color = Color.RED;
 
 	private ArrayList<GameObject> visibleObjects = new ArrayList<>();
 	private ArrayList<Player> players = new ArrayList<>();
 	private int remainingCount;
 	private boolean invisible;
 	private int idPlayer;
+	private boolean gameOver;
 
 	public ControllerClient()
 	{
@@ -34,7 +35,8 @@ public class ControllerClient implements Controller
 
 	public void sendInputs(int keys)
 	{
-		client.sendInputs(keys);
+		if (!this.gameOver)
+			client.sendInputs(keys);
 	}
 
 	@Override
@@ -154,6 +156,7 @@ public class ControllerClient implements Controller
 
 	public void gameOver()
 	{
-		// TODO: APPELER UNE METHODE DANS L'IHM POUR SIGNALER LA FIN DE PARTIE
+		this.gameOver = true;
+		this.frame.gameOver();
 	}
 }

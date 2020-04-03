@@ -31,7 +31,6 @@ public class GameClient implements Runnable
 		while(true) {
 			try
 			{
-				System.out.println("Receiving");
 				byte[] msg = client.receive();
 
 				GameMessage gm = GameMessage.parseMessage(msg);
@@ -43,14 +42,14 @@ public class GameClient implements Runnable
 					ctrl.setPlayers(gs.getPlayers());
 					ctrl.setRemainingObjectCount(gs.getRemainingObjectCount());
 					ctrl.setInvisible(gs.isInvisible());
-					System.out.println("gamestate, update gui");
 					ctrl.updateGui();
 				} else if (gm instanceof ServerHandshake) {
 					ServerHandshake sh = (ServerHandshake) gm;
 
 					ctrl.setIdPlayer(sh.getIdPlayer());
 				} else if (gm instanceof EndGame) {
-					ctrl.gameOver();
+
+					break;
 				}
 			}
 			catch (IOException e)
@@ -58,6 +57,8 @@ public class GameClient implements Runnable
 				e.printStackTrace();
 			}
 		}
+
+		ctrl.gameOver();
 	}
 
 	public void sendPlayer(String name, Color color ){

@@ -98,7 +98,6 @@ public class MenuPanel extends JPanel
 
 	public void majIHM()
 	{
-		System.out.println("MAJ IHM");
 		this.frameGame.majIHM();
 	}
 }

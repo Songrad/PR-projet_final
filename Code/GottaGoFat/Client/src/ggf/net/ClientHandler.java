@@ -34,7 +34,6 @@ public class ClientHandler
 
 	public void processRequest(Message message) throws IOException
 	{
-		System.out.println("Processing request");
 		GameMessage gm = GameMessage.parseMessage(message.getData());
 
 		if (gm instanceof ClientHandshake)
@@ -47,7 +46,6 @@ public class ClientHandler
 		{
 			InputState is = (InputState) gm;
 			this.inputs = is.getInputs();
-			System.out.println(address.toString() + ": Received inputs "+this.inputs);
 		}
 	}
 

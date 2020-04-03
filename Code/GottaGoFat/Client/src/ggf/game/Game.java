@@ -1,5 +1,6 @@
 package ggf.game;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -22,8 +23,9 @@ public class Game
 	public Game(int objectCount, boolean invisible)
 	{
 		this.objectCount = objectCount;
-		this.visibleObjectCount = objectCount / 10;
+		this.visibleObjectCount = Math.max(objectCount / 10, 10);
 		this.looping = true;
+		this.invisible = invisible;
 
 		this.playerList = new ArrayList<>();
 		this.objectList = new ArrayList<>();
