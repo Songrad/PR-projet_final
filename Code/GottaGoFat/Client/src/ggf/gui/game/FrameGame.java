@@ -18,28 +18,12 @@ public class FrameGame extends JFrame {
 		this.setContentPane(panelMain);
 		this.setSize(600, 600);
 		this.pack();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
 
 	public void majIHM()
 	{
 		this.panelMain.majIHM();
-	}
-}
-
-class GameWindowManager extends WindowAdapter
-{
-	private final JFrame menuFrame;
-
-	public GameWindowManager(JFrame menuFrame)
-	{
-		this.menuFrame = menuFrame;
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e)
-	{
-		super.windowClosing(e);
-		menuFrame.setVisible(true);
 	}
 }

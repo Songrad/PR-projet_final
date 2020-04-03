@@ -108,7 +108,19 @@ public class GameServer
 
 	public static void main(String[] args) throws IOException
 	{
-		new GameServer(57300, false);
+		int port = 57300;
+		boolean invisible = false;
+
+		if (args.length >= 1)
+		{
+			port = Integer.parseInt(args[0]);
+		}
+
+		if (args.length >= 2) {
+			invisible = args[1].equals("true");
+		}
+
+		new GameServer(port, invisible);
 	}
 
 	public void broadcastMessage(String message)
