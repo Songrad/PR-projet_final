@@ -15,6 +15,7 @@ public class PanelScore extends JPanel
 
     private Controller ctrl;
     private JLabel[] bestPlayer;
+    private JLabel localScoreLabel;
     private JLabel timerLabel;
     private JLabel objRest;
     private Timer timer;
@@ -37,6 +38,7 @@ public class PanelScore extends JPanel
         Collections.sort(lstPlayer);
 
         this.bestPlayer = new JLabel[]{new JLabel(), new JLabel(), new JLabel()};
+        this.localScoreLabel = new JLabel();
 
         for (int i = 0; i < 3; i++)
             this.add(bestPlayer[i]);
@@ -49,6 +51,8 @@ public class PanelScore extends JPanel
             this.bestPlayer[i].setText("#" + tmp + " - " +p.getName() + " : " + p.getScore());
             // this.add(bestPlayer[i]);
         }
+
+        this.add(this.localScoreLabel);
 
 
         this.timerLabel.setText("Temps : " + TIME );
@@ -80,6 +84,10 @@ public class PanelScore extends JPanel
         }
 
         this.objRest.setText("Objets restants : " + this.ctrl.getRemainingObjectCount());
+        try
+        {
+            this.localScoreLabel.setText("Votre score: " + this.ctrl.getPlayerList().get(this.ctrl.getIdPlayer()).getScore());
+        } catch (IndexOutOfBoundsException ignored) {}
     }
 
 }

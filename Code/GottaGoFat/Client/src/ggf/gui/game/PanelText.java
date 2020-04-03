@@ -50,11 +50,9 @@ public class PanelText extends JPanel implements ActionListener
         this.ctrl.sendMessage(message);
 
         this.input.setText("");
-
-        this.display.setText(this.ctrl.getMessages());
     }
 
     public void majChat(){
-
+        this.display.setText(this.ctrl.getMessages());
     }
 }

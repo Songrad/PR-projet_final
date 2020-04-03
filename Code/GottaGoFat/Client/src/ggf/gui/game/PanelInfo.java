@@ -39,12 +39,13 @@ public class PanelInfo extends JPanel implements ActionListener
     {
         if(e.getSource() == this.quit)
         {
-            //TODO:Quitter
+            System.exit(0);
         }
     }
 
     public void majInfo()
     {
         this.panelScore.majScore();
+        this.panelText.majChat();
     }
 }

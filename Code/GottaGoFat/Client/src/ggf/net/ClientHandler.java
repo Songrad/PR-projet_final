@@ -4,6 +4,7 @@ import ggf.game.Game;
 import ggf.net.messages.GameMessage;
 import ggf.net.messages.client.ClientHandshake;
 import ggf.net.messages.client.InputState;
+import ggf.net.messages.client.SendMessage;
 import ggf.net.messages.server.ServerHandshake;
 import jdk.internal.util.xml.impl.Input;
 
@@ -41,11 +42,20 @@ public class ClientHandler
 			ClientHandshake ch = (ClientHandshake) gm;
 			this.playerId = game.addPlayer(ch.getName(), ch.getColor());
 			server.send(this.address, new ServerHandshake(playerId).getDataBytes());
+			server.broadcastMessage(String.format("<%s a rejoint la partie>", ch.getName()));
 		}
 		else if (gm instanceof InputState)
 		{
 			InputState is = (InputState) gm;
 			this.inputs = is.getInputs();
+		}
+		else if (gm instanceof SendMessage)
+		{
+			SendMessage sm = (SendMessage) gm;
+
+			String name = game.getPlayerList().get(this.playerId).getName();
+
+			server.broadcastMessage(String.format("[%s] %s", name, sm.getMessage()));
 		}
 	}
 

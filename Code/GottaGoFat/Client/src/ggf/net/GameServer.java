@@ -2,6 +2,7 @@ package ggf.net;
 
 import ggf.game.Game;
 import ggf.gui.game.ArrowKeyManager;
+import ggf.net.messages.server.BroadcastMessage;
 import ggf.net.messages.server.EndGame;
 import ggf.net.messages.server.GameState;
 
@@ -22,8 +23,8 @@ public class GameServer
 	public GameServer(int port, boolean invisible) throws IOException
 	{
 		this.server = new UdpServer(port);
-		//this.game = new Game((int)(Math.random() * 500 + 500), invisible);
-		this.game = new Game(1, invisible);
+		this.game = new Game((int)(Math.random() * 500 + 500), invisible);
+		// this.game = new Game(1000, invisible);
 
 		this.hmClients = new HashMap<>();
 
@@ -108,5 +109,19 @@ public class GameServer
 	public static void main(String[] args) throws IOException
 	{
 		new GameServer(57300, false);
+	}
+
+	public void broadcastMessage(String message)
+	{
+		BroadcastMessage packet = new BroadcastMessage(message);
+
+		for (ClientHandler handler : hmClients.values())
+		{
+			try
+			{
+				server.send(packet.getDataBytes(), handler.getAddress());
+			}
+			catch (IOException ignored){}
+		}
 	}
 }

@@ -4,6 +4,8 @@ import ggf.ControllerClient;
 import ggf.net.messages.GameMessage;
 import ggf.net.messages.client.ClientHandshake;
 import ggf.net.messages.client.InputState;
+import ggf.net.messages.client.SendMessage;
+import ggf.net.messages.server.BroadcastMessage;
 import ggf.net.messages.server.EndGame;
 import ggf.net.messages.server.GameState;
 import ggf.net.messages.server.ServerHandshake;
@@ -47,7 +49,10 @@ public class GameClient implements Runnable
 					ServerHandshake sh = (ServerHandshake) gm;
 
 					ctrl.setIdPlayer(sh.getIdPlayer());
-				} else if (gm instanceof EndGame) {
+				} else if (gm instanceof BroadcastMessage) {
+					ctrl.receiveMessage(((BroadcastMessage)gm).getMessage());
+				}
+				else if (gm instanceof EndGame) {
 
 					break;
 				}
@@ -77,6 +82,20 @@ public class GameClient implements Runnable
 		try
 		{
 			client.send(new InputState(keys).getDataBytes());
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void sendMessage(String message)
+	{
+		SendMessage packet = new SendMessage(message);
+
+		try
+		{
+			client.send(packet.getDataBytes());
 		}
 		catch (IOException e)
 		{

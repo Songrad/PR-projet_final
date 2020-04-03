@@ -28,6 +28,8 @@ public class ControllerClient implements Controller
 	private int idPlayer;
 	private boolean gameOver;
 
+	private String messageLog = "";
+
 	public ControllerClient()
 	{
 		this.frame = new FrameHome(this);
@@ -60,14 +62,14 @@ public class ControllerClient implements Controller
 	@Override
 	public void sendMessage(String message)
 	{
-		// TODO
+		System.out.println("Message envoyé");
+		this.client.sendMessage(message);
 	}
 
 	@Override
 	public String getMessages()
 	{
-		// TODO
-		return null;
+		return this.messageLog;
 	}
 
 	@Override
@@ -158,5 +160,12 @@ public class ControllerClient implements Controller
 	{
 		this.gameOver = true;
 		this.frame.gameOver();
+	}
+
+	public void receiveMessage(String message)
+	{
+		System.out.println("Message reçu");
+		this.messageLog += message + System.lineSeparator();
+		this.frame.majIHM();
 	}
 }
