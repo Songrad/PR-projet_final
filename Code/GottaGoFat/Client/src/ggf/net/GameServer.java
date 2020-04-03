@@ -22,7 +22,8 @@ public class GameServer
 	public GameServer(int port, boolean invisible) throws IOException
 	{
 		this.server = new UdpServer(port);
-		this.game = new Game((int)(Math.random() * 500 + 500), invisible);
+		//this.game = new Game((int)(Math.random() * 500 + 500), invisible);
+		this.game = new Game(1, invisible);
 
 		this.hmClients = new HashMap<>();
 

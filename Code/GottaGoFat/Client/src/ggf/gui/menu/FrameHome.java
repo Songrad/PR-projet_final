@@ -1,10 +1,13 @@
 package ggf.gui.menu;
 
 import ggf.Controller;
+import ggf.game.Player;
 import ggf.gui.game.FrameGame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class FrameHome extends JFrame
 {
@@ -48,6 +51,32 @@ public class FrameHome extends JFrame
         }
 
         this.bottomPanel = panel;
+    }
+
+    public void gameOver()
+    {
+
+
+        ArrayList<Player> lstPlayer = new ArrayList<>(this.ctrl.getPlayerList());
+        lstPlayer.sort(Collections.reverseOrder());
+
+        String score = "";
+        int tmp = 0;
+
+        for(int i = 0; i<lstPlayer.size(); i++)
+        {
+            tmp++;
+            score += "#" + tmp + " - " + lstPlayer.get(i).getName() + " : " + lstPlayer.get(i).getScore() + "\n";
+        }
+
+        JOptionPane d = new JOptionPane();
+        int retour = d.showConfirmDialog(null,score,"Fin de la partie", JOptionPane.DEFAULT_OPTION,
+                            0,new ImageIcon(getClass().getResource("/ggf/gui/img/trophy.png")));
+
+        if(retour == 0)
+        {
+            System.exit(0);
+        }
     }
 
     public void majIHM()
